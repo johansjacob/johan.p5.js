@@ -3,11 +3,11 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(255);
 
   // Car body
-  fill(255, 0, 0);
-  rect(150, 100, 100, 40);
+  fill(100, 50,175);
+  rect(140, 100, 110, 40);
 
   // Wheels
   fill(100);
