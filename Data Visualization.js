@@ -1,38 +1,48 @@
-let data = [ 585,  660,  710,  978,  1650, 6127, 8549, 10152, 10875 ];
-let labels = [ 1500, 1600, 1700, 1800, 1900, 2000, 2030, 2060, 2100 ];
-let title = 'World Population (in millions)';
+let currencies = ["USD", "EUR", "GBP", "JPY", "CAD", "AED"]; 
+let rates = [];
 
-let options = {
+function setup() {
+  createCanvas(800, 400);
+  generateRates();
+}
+
+function draw() {
+  background(220);
+  drawBarChart();
+}
+
+function generateRates() {
   
+  for (let i = 0; i < currencies.length; i++) {
 
-  type: 'bar',
-  
-  data: {
-    labels: labels,
-    datasets: [{
-      
-      // a few basic settings for the bars
-      backgroundColor: 'rgb(255,150,0)',
-      borderColor:     'rgb(200,100,0)',
-      borderWidth:     2,
-      
+    if (currencies[i] !== "AED") {
+      rates[i] = random(0.1, 10); 
+    } else {
 
-      barPercentage: 1.0,
-      
-      data: data,
-      label: 'Population (in millions)'
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: title
-    },
-    legend: {
-      display: false
+      rates[i] = 1;
     }
   }
 }
 
-let chart = new Chart(document.getElementById('canvas'), options);
+function drawBarChart() {
+  let barWidth = width / currencies.length;
 
+  for (let i = 0; i < currencies.length; i++) {
+    let x = i * barWidth;
+    let y = map(rates[i], 0, 10, height, 0);
+    let barHeight = height - y;
+
+    fill(0, 0, 255);
+    rect(x, y, barWidth, barHeight);
+
+    fill(0);
+    textAlign(CENTER);
+    textSize(16);
+    text(currencies[i], x + barWidth / 2, height - 10);
+
+    fill(0);
+    textAlign(CENTER);
+    textSize(14);
+    text(nf(rates[i], 0, 2), x + barWidth / 2, y - 5); 
+  }
+}
